@@ -13,6 +13,36 @@ const connection = mysql.createConnection({
   database : config.db_schema
 });
 
+const oracledb = require('oracledb');
+async function test_run() {
+  let connection;
+  try{
+    connection = await oracledb.getConnection(
+  {
+    user          : config.oracle_id,
+    password      : config.oracle_pw,
+    connectString : config.oracle_connect_string
+  });
+  const result = await connection.execute(
+      `SELECT manager_id, department_id, department_name
+       FROM departments`,
+  );
+  console.log(result.rows);
+  }
+  catch (err) {
+    console.error(err);
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+}
+test_run();
+
 
 app.get('/', (req, res) => {
   console.log("time started")
