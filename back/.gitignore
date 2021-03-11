@@ -1,0 +1,5 @@
+config/
+static/
+app.js
+node_modules/
+
