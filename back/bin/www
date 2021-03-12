@@ -1,0 +1,21 @@
+var config  = require('../config/config');
+var app = require('../index');
+var port =  normalizePort(process.env.PORT || config.server_port);
+
+app.listen(port, () => {
+  console.log(`서버 실행... http://localhost:${port}`)
+})
+
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+  return false;
+}
