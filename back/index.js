@@ -60,7 +60,10 @@ app.get('/', (req, res) => {
 })
 
 app.post('/query',function(req,res){
-  console.log(req.body['query']);
+  console.log();
+  console.log('USER : \"' + req.body['user']+'\"');
+  console.log('REQUEST : \"' + req.body['query']+'\"');
+  var t0 = new Date().getTime();
   //let temp = test_run();
   //res.end();
   oracledb.getConnection(
@@ -80,15 +83,20 @@ app.post('/query',function(req,res){
         if (err) {
           console.error(err.message);
           doRelease(connection);
+          res.send(err.message)
+          res.end()
           return;
         }
-        console.log(result.rows);
-        res.json({head:result.metaData,row:result.rows})
+//        console.log(result.rows);
+        var t1 = new Date().getTime();
+        res.json({head:result.metaData,row:result.rows,time:t1-t0})
+        console.log('QUERY : \"' + req.body['query'] + '\" success!')
+        console.log('TIME : '+ (t1-t0) + 'milliseconds.\n')
         doRelease(connection);
+        res.end();
       });
   });
 })
-
 
 function doRelease(connection) {
   connection.close(
