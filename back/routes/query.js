@@ -34,7 +34,7 @@ app.post('/',function(req,res){
         }
 //        console.log(result.rows);
         var t1 = new Date().getTime();
-        res.json({head:result.metaData,row:result.rows,time:t1-t0})
+        res.json({time:t1-t0,head:result.metaData,row:result.rows})
         console.log('QUERY : \"' + req.body['query'] + '\" success!')
         console.log('TIME : '+ (t1-t0) + 'milliseconds.\n')
         doRelease(connection);
