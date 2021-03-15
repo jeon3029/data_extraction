@@ -11,6 +11,7 @@ var result_router = require('./routes/result')
 app.use(cors());
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/css', express.static(__dirname+'/routes/views/style'))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(body_parser.json())

@@ -2,15 +2,41 @@
 <html>
     <head>
         <title><%= title %></title>
-<!--        <link rel='stylesheet' href='/stylesheets/style.css' />-->
+<!--        <link rel='stylesheet' href='/css/result.css' />-->
+      <style>
+        table, td{
+          border: 1px solid black;
+        }
+      </style>
     </head>
     <body>
         <h2>QUERY result</h2>
         <div>
-          result
           <p>id: <%= id %></p>
           <p>query: <%= query %></p>
         </div>
+        <table>
+          <caption>Result</caption>
+          <thead>
+            <tr>
+            <% for(var i=0; i < result_head.length; i++) { %>
+              <td>
+                <%= result_head[i].name %>
+              </td>
+            <% } %>
+            </tr>
+          </thead>
+          <tbody>   
+            <% for(var i=0; i < result_row.length; i++) { %>
+            <tr>
+              <% for(var j=0; j < result_head.length; j++) { %>
+              <td>
+                <%= result_row[i][j] %>
+              </td>
+              <% } %>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
     </body>
 </html>
-
